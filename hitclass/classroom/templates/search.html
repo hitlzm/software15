@@ -14,6 +14,14 @@
 	
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<script src="js/jquery.min.js"></script>
+
+	<!-- Add 2015.11.22 -->
+	{% load staticfiles %}<link href="{% static "css/flat-bootstrap.min.css" %}" rel='stylesheet'>
+	{% load staticfiles %}<link href="{% static "css/flat-ui.min.css" %}" rel='stylesheet'>
+	{% load staticfiles %}<link href="{% static "css/flat-bootstrap.min.css" %}" rel='stylesheet'>
+
+	{% load staticfiles %}<link href="{% static "css/table.css" %}" rel='stylesheet'>
+
 </head>
 
 <body>
@@ -50,46 +58,218 @@
 	</div>
 	<!-- header-section-ends -->
 
-	<table>
-		<tr>
-			<th>楼层:</th>
-			<th>
-				<select>
-					<option value ="volvo">F1</option>
-					<option value ="saab">F2</option>
-					<option value="opel">F3</option>
-					<option value="audi">F4</option>
-				</select></th>
 
-			<th>楼层:</th>
-			<th>
-				<select>
-					<option value ="volvo">Volvo</option>
-					<option value ="saab">Saab</option>
-					<option value="opel">Opel</option>
-					<option value="audi">Audi</option>
-				</select></th>
-		</tr>
-	</table>
+	<!--级联的Js代码-->
+	<script language="javascript" >
+	/*  
+	**    ====================================
+	**    类名：CLASS_LIANDONG_YAO  
+	**    功能：多级连动菜单  
+	**    作者：YAODAYIZI     
+	**/  	
+	function CLASS_LIANDONG_YAO(array)
+	{
+	//数组，联动的数据源
+		this.array=array; 
+		this.indexName='';
+		this.obj='';
+		//设置子SELECT
+	// 参数：当前onchange的SELECT ID，要设置的SELECT ID
+	  this.subSelectChange=function(selectName1,selectName2)
+		{
+		//try
+		//{
+	var obj1=document.all[selectName1];
+	var obj2=document.all[selectName2];
+	var objName=this.toString();
+	var me=this;
+	obj1.onchange=function()
+	{
+		me.optionChange(this.options[this.selectedIndex].value,obj2.id)
+	}
+		}
+		//设置第一个SELECT
+	// 参数：indexName指选中项,selectName指select的ID
+		this.firstSelectChange=function(indexName,selectName)  
+		{
+		this.obj=document.all[selectName];
+		this.indexName=indexName;
+		this.optionChange(this.indexName,this.obj.id)
+		}
+	// indexName指选中项,selectName指select的ID
+		this.optionChange=function (indexName,selectName)
+		{
+	var obj1=document.all[selectName];
+	var me=this;
+	obj1.length=0;
+	obj1.options[0]=new Option("Select",'');
+	for(var i=0;i<this.array.length;i++)
+	{	
+		{
+		if(this.array[i][1]==indexName)
+		//alert(this.array[i][1]+" "+indexName);
+	  obj1.options[obj1.length]=new Option(this.array[i][2],this.array[i][0]);
+		}
+	}
+		}	
+	}
+	</script>
+
+	
+	<form method="post">
+	<div class="demo-row">
+		<table align="center">
+			<tr>
+				<th>
+				<div class="demo-content">
+					<select name="campus" id="campus" class="form-control select select-primary mbl" data-toggle="select">
+						<option value="">校区</option>
+					</select>
+				</div>
+				</th>
+				
+				<th>
+				<div class="demo-content">
+					<select name="building" id="building" class="form-control select select-primary mbl" data-toggle="select">
+						<option value="">教学楼</option>
+					</select>
+				</div>
+				</th>
+
+				<th>
+				<div class="demo-content">
+					<select name="floor" id="floor" class="form-control select select-primary mbl" data-toggle="select">
+						<option value="">楼层</option>
+					</select>
+				</div>
+				</th>
+
+				<th>
+				<div class="demo-content">
+					<select name="weeknum" class="form-control select select-primary mbl" data-toggle="select">
+						<option value="1">第1周</option>
+						<option value="2">第2周</option>
+						<option value="3">第3周</option>
+						<option value="4">第4周</option>
+						<option value="5">第5周</option>
+						<option value="6">第6周</option>
+						<option value="7">第7周</option>
+						<option value="8">第8周</option>
+						<option value="9">第9周</option>
+						<option value="10">第10周</option>
+						<option value="11" >第11周</option>
+						<option value="12">第12周</option>
+						<option value="13">第13周</option>
+						<option value="14">第14周</option>
+						<option value="15"selected="selected">第15周</option>
+						<option value="16">第16周</option>
+						<option value="17">第17周</option>
+						<option value="18">第18周</option>
+					</select>
+				</div>
+				</th>
+
+				<th>
+				<div class="demo-content">
+					<select name="week" class="form-control select select-primary mbl" data-toggle="select">
+						<option value="1">星期一</option>
+						<option value="2">星期二</option>
+						<option value="3">星期三</option>
+						<option value="4" selected="selected">星期四</option>
+						<option value="5">星期五</option>
+						<option value="6">星期六</option>
+						<option value="7">星期日</option>
+					</select>
+				</div>
+				</th>
+
+				<th>
+				<div class="demo-content">
+					<select name="period" class="form-control select select-primary mbl" data-toggle="select">
+						<option value="0" selected="selected">第1-2节</option>
+						<option value="1">第3-4节</option>
+						<option value="2">第5-6节</option>
+						<option value="3">第7-8节</option>
+						<option value="4">第9-10节</option>
+						<option value="5">第11-12节</option>
+					</select>
+				</div>
+				</th>
+		</table>
+
+		<p align="center"><button class="btn btn-hg btn-primary" type="submit">Search For It</button></p>
+
+	</div>
+	</form>
+	
+
+	{% for m in messageTeam %}
+	<div class="cards_wrap no-image-shadow grayscale-images shadow clearfix" id="fifth_wrapper">
+		<li class="cards" id="fifth_1">
+			{% if m.0.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.0.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>
+
+		<li class="cards" id="fifth_2">
+			{% if m.1.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.1.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>
+
+		<li class="cards" id="fifth_3">
+			{% if m.2.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.2.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>
+
+		<li class="cards" id="fifth_4">
+			{% if m.3.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.3.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>    
+	</div>
+	{% endfor %}
 
 	<div class="cards_wrap grayscale-images shadow clearfix" id="first_wrapper" style="height: 450px">
+		
 		<li class="cards" id="first_1">
 			<a href="images/Zhengxin.jpg" rel="lightbox-one" title="Interior">
 				<img rel="lightbox" src="/static/images/Zhengxin.jpg"></a>
 			<span class="main_caption">正心楼</span>
-			<span class="sub_caption">Zhengxin Building</span>
+			<span class="sub_caption">016 Building</span>
 		</li>
 
 		<li class="cards" id="first_2">
 			<a href="images/Zhizhi.jpg" rel="lightbox-one" title="Interior">
 				<img src="/static/images/Zhizhi.jpg"></a>
 			<span class="main_caption">致知楼</span>
-			<span class="sub_caption">Zhizhi Building</span>
+			<span class="sub_caption">025 Building</span>
 		</li>
 
 		<li class="cards" id="first_3">
 			<a href="images/Zhulou.jpg" rel="lightbox-one" title="Interior">
-				<img src="/static/images/ZhuLou.jpg"></a>
+				<img src="/static/images/Zhulou.jpg"></a>
 			<span class="main_caption">主楼</span>
 			<span class="sub_caption">Main Building</span>
 		</li>
@@ -98,12 +278,9 @@
 			<a href="images/Chengyi.jpg" rel="lightbox-one" title="Interior">
 				<img src="/static/images/Chengyi.jpg"></a>
 			<span class="main_caption">诚意楼</span>
-			<span class="sub_caption">Chengyi Building</span>
+			<span class="sub_caption">027 Building</span>
 		</li>
 	</div>
-		<!-- End of Cards_Wrap Main -->
-
-
 
 	<div class="footer text-center">
 		<div class="copyright">
@@ -116,6 +293,92 @@
 	<script type="text/javascript" src="/static/js/js.js"></script>
 	<script type="text/javascript" src="/static/js/slimbox2.js"></script>
 	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+	<!-- Add 2015.11.22 -->
+	<script src="/static/js/flat-jquery.min.js"></script>
+    <script src="/static/js/flat-ui.min.js"></script>
+    <script src="/static/js/flat-application.js"></script>
+
+
+    <script language="javascript">
+		var seldata=new Array();//数据格式 ID，父级ID，名称
+		
+		seldata[0]=new Array("1","root","一校区");
+		seldata[1]=new Array("2","root","二校区");
+
+		seldata[2]=new Array("016","1","正心楼");
+		seldata[3]=new Array("025","1","致知楼");
+		seldata[4]=new Array("027","1","诚意楼");
+		seldata[5]=new Array("012","1","机械楼");
+		
+		//正心楼层
+		seldata[6]=new Array("1","016","F1");
+		seldata[7]=new Array("2","016","F2");
+		seldata[8]=new Array("3","016","F3");
+		seldata[9]=new Array("4","016","F4");
+		seldata[10]=new Array("5","016","F5");
+		seldata[11]=new Array("6","016","F6");
+		seldata[12]=new Array("7","016","F7");
+		seldata[13]=new Array("8","016","F8");
+		seldata[14]=new Array("9","016","F9");
+		seldata[15]=new Array("10","016","F10");
+
+		//致知楼层
+		seldata[16]=new Array("1","025","F1");
+		seldata[17]=new Array("2","025","F2");
+		seldata[18]=new Array("3","025","F3");
+		seldata[19]=new Array("4","025","F4");
+
+		//诚意楼层
+		seldata[20]=new Array("1","027","F1");
+		seldata[21]=new Array("2","027","F2");
+		seldata[22]=new Array("3","027","F3");
+		seldata[23]=new Array("4","027","F4");
+		seldata[24]=new Array("5","027","F5");
+		seldata[25]=new Array("6","027","F6");
+		
+		//机械楼楼层
+		seldata[26]=new Array("1","012","F1");
+		seldata[27]=new Array("2","012","F2");
+		seldata[28]=new Array("3","012","F3");
+		seldata[29]=new Array("4","012","F4");
+
+
+		seldata[30]=new Array("033","2","主楼");
+		seldata[31]=new Array("032","2","东配楼");
+		seldata[32]=new Array("042","2","西配楼");
+
+		//二区主楼楼层
+		seldata[33]=new Array("1","033","F1");
+		seldata[34]=new Array("2","033","F2");
+		seldata[35]=new Array("3","033","F3");
+		seldata[36]=new Array("4","033","F4");
+		seldata[37]=new Array("5","033","F5");
+		seldata[38]=new Array("6","033","F6");
+		seldata[39]=new Array("7","033","F7");
+		seldata[40]=new Array("8","033","F8");
+		seldata[41]=new Array("9","033","F9");
+
+		//东配楼
+		seldata[42]=new Array("1","032","F1");
+		seldata[43]=new Array("2","032","F2");
+		seldata[44]=new Array("3","032","F3");
+		seldata[45]=new Array("4","032","F4");
+
+		//西配楼
+		seldata[46]=new Array("1","042","F1");
+		seldata[47]=new Array("2","042","F2");
+		seldata[48]=new Array("3","042","F3");
+		//--------------------------------------------
+		//这是调用代码
+		//设置数据源
+		var liandong2=new CLASS_LIANDONG_YAO(seldata);
+		//设置第一个选择框
+		liandong2.firstSelectChange("root","campus");
+		//设置子选择框
+		liandong2.subSelectChange("campus","building")
+		liandong2.subSelectChange("building","floor")
+	</script>
 
 </body>
 </html>
