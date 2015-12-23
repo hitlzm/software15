@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>教室查询|校园生活服务</title>
+	<title>教室推荐|校园生活服务</title>
 	
 	{% load staticfiles %}<link href="{% static "css/bootstrap.css" %}" rel='stylesheet' type='text/css'>
 	<script src="js/jquery.min.js"></script>
@@ -50,53 +50,89 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<!-- header-section-ends -->
 
 
-	<!-- Cards_Wrap Main start-->
+	{% for m in messageTeam %}
+	<div class="cards_wrap no-image-shadow grayscale-images shadow clearfix" id="fifth_wrapper">
+		<li class="cards" id="fifth_1">
+			{% if m.0.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.0.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>
+
+		<li class="cards" id="fifth_2">
+			{% if m.1.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.1.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>
+
+		<li class="cards" id="fifth_3">
+			{% if m.2.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.2.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>
+
+		<li class="cards" id="fifth_4">
+			{% if m.3.status.class12 == '1' %}
+				<img src="/static/images/class-not.png"/>
+			{% else %}
+				<img src="/static/images/class-empty.png"/>
+			{% endif %}
+			<span class="main_caption">{{ buildingName }}{{ m.3.classroom.room }}</span>
+			<p>{{ periodName }}</p>
+			<a type="button" class="butn">Reserve It</a>
+		</li>    
+	</div>
+	{% endfor %}
+
 	<h2 id="three"></h2>
-		<div class="cards_wrap grayscale-images shadow clearfix" id="first_wrapper" style="height: 450px">
-			
-			<li class="cards" id="first_1">
-				<a href="images/test1.jpeg" rel="lightbox-one" title="Interior">
-					<img rel="lightbox" src="/static/images/test1.jpeg"></a>
-				<span class="main_caption">Building 1</span>
-				<span class="sub_caption">Zhengxin Building</span>
-			</li>
+	<div class="cards_wrap grayscale-images shadow clearfix" id="first_wrapper" style="height: 450px">
+		
+		<li class="cards" id="first_1">
+			<a href="images/test1.jpeg" rel="lightbox-one" title="Interior">
+				<img rel="lightbox" src="/static/images/test1.jpeg"></a>
+			<span class="main_caption">Building 1</span>
+			<span class="sub_caption">Zhengxin Building</span>
+		</li>
 
-			<li class="cards" id="first_2">
-				<a href="images/test2.jpeg" rel="lightbox-one" title="Interior">
-					<img src="/static/images/test2.jpeg"></a>
-				<span class="main_caption">Building 2</span>
-				<span class="sub_caption">Zhizhi Building</span>
-			</li>
+		<li class="cards" id="first_2">
+			<a href="images/test2.jpeg" rel="lightbox-one" title="Interior">
+				<img src="/static/images/test2.jpeg"></a>
+			<span class="main_caption">Building 2</span>
+			<span class="sub_caption">Zhizhi Building</span>
+		</li>
 
-			<li class="cards" id="first_3">
-				<a href="images/test3.jpeg" rel="lightbox-one" title="Interior">
-					<img src="/static/images/test3.jpeg"></a>
-				<span class="main_caption">Building 3</span>
-				<span class="sub_caption">Main Building</span>
-			</li>
+		<li class="cards" id="first_3">
+			<a href="images/test3.jpeg" rel="lightbox-one" title="Interior">
+				<img src="/static/images/test3.jpeg"></a>
+			<span class="main_caption">Building 3</span>
+			<span class="sub_caption">Main Building</span>
+		</li>
 
-			<li class="cards" id="first_4">
-				<a href="images/test4.jpeg" rel="lightbox-one" title="Interior">
-					<img src="/static/images/test4.jpeg"></a>
-				<span class="main_caption">Building 4</span>
-				<span class="sub_caption">Chengyi Building</span>
-			</li>
-		</div>
-		<!-- End of Cards_Wrap Main -->
-
-
+		<li class="cards" id="first_4">
+			<a href="images/test4.jpeg" rel="lightbox-one" title="Interior">
+				<img src="/static/images/test4.jpeg"></a>
+			<span class="main_caption">Building 4</span>
+			<span class="sub_caption">Chengyi Building</span>
+		</li>
+	</div>
 
 	<div class="footer text-center">
-		<div class="social-icons">
-			<a href="#"><i class="facebook"></i></a>
-			<a href="#"><i class="twitter"></i></a>
-			<a href="#"><i class="googlepluse"></i></a>
-			<a href="#"><i class="youtube"></i></a>
-			<a href="#"><i class="linkedin"></i></a>
-		</div>
 		<div class="copyright">
 			<p>Copyright &copy; 2015.HITCS Zhiming Liu & Rongpeng Zheng & Kai Lin All rights reserved</p>
 		</div>
