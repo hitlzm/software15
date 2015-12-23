@@ -7,6 +7,7 @@ class Classroom(models.Model):
 	floor = models.CharField(max_length = 2) #楼层
 	room = models.CharField(max_length = 10) #教室名
 	roomid = models.CharField(max_length = 4, primary_key = True) #教室id
+
 	def __unicode__(self):
 		return self.campus + '-' + self.building + '-' + self.floor + '-' + self.room
 
@@ -18,9 +19,6 @@ class Status(models.Model):
 	class78 = models.CharField(max_length = 1)
 	class910 = models.CharField(max_length = 1)
 	class1112 = models.CharField(max_length = 1)
-
-	def get_class12(self):
-		return self.class12
 
 	def __unicode__(self):
 		return self.class12 + self.class34 + self.class56 + self.class78 + self.class910 + self.class1112
