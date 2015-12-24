@@ -1,7 +1,6 @@
 <html>
 <head>
 	<title>教室查询|校园生活服务</title>
-	
 	<!-- Custom Theme files -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,7 +10,7 @@
 	{% load staticfiles %}<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all" />
 
 	<link href='http://fonts.useso.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	
+
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<script src="js/jquery.min.js"></script>
 
@@ -28,21 +27,22 @@
 	<!-- header-section-starts -->
 	<div class="header">
 		<div class="container">
-			
+
 			<div class="logo">
 				<a href="index.html"><img src="/static/images/logo.jpg" class="img-responsive" alt="" /></a>
 			</div>
-			
+
 			<div class="header-right">
 				<h4><i class=""></i>Harbin Institute of Technology</h4>
 				<span class="menu"></span>
 				<div class="top-menu">
-					<ul>                                              
+					<ul>
 						<li><a href="/index">首页</a></li>
 						<li><a href="/recommend">教室推荐</a></li>
 						<li><a class="active" href="/search">教室查询</a></li>
 						<li><a href="/navigation">校园导航</a></li>
-						<li><a href="/login">统一身份平台认证</a></li>
+						<li><a href="/reserve">教室预借</a></li>
+						<li><a href="/login">统一身份认证</a></li>
 					</ul>
 				</div>
 				<!-- script for menu -->
@@ -61,16 +61,16 @@
 
 	<!--级联的Js代码-->
 	<script language="javascript" >
-	/*  
+	/*
 	**    ====================================
-	**    类名：CLASS_LIANDONG_YAO  
-	**    功能：多级连动菜单  
-	**    作者：YAODAYIZI     
-	**/  	
+	**    类名：CLASS_LIANDONG_YAO
+	**    功能：多级连动菜单
+	**    作者：YAODAYIZI
+	**/
 	function CLASS_LIANDONG_YAO(array)
 	{
 	//数组，联动的数据源
-		this.array=array; 
+		this.array=array;
 		this.indexName='';
 		this.obj='';
 		//设置子SELECT
@@ -90,7 +90,7 @@
 		}
 		//设置第一个SELECT
 	// 参数：indexName指选中项,selectName指select的ID
-		this.firstSelectChange=function(indexName,selectName)  
+		this.firstSelectChange=function(indexName,selectName)
 		{
 		this.obj=document.all[selectName];
 		this.indexName=indexName;
@@ -104,18 +104,18 @@
 	obj1.length=0;
 	obj1.options[0]=new Option("Select",'');
 	for(var i=0;i<this.array.length;i++)
-	{	
+	{
 		{
 		if(this.array[i][1]==indexName)
 		//alert(this.array[i][1]+" "+indexName);
 	  obj1.options[obj1.length]=new Option(this.array[i][2],this.array[i][0]);
 		}
 	}
-		}	
+		}
 	}
 	</script>
 
-	
+
 	<form method="post">
 	<div class="demo-row">
 		<table align="center">
@@ -127,7 +127,7 @@
 					</select>
 				</div>
 				</th>
-				
+
 				<th>
 				<div class="demo-content">
 					<select name="building" id="building" class="form-control select select-primary mbl" data-toggle="select">
@@ -228,7 +228,7 @@
 
 						document.getElementById(id).selected = "selected";
 					</script>
-					
+
 				</div>
 				</th>
 		</table>
@@ -237,58 +237,112 @@
 
 	</div>
 	</form>
-	
+
+	<script type="text/javascript">
+		function disp_alert()
+		{
+			alert("对不起，该教室已被借用！")
+		}
+	</script>
 
 	{% for m in messageTeam %}
 	<div class="cards_wrap no-image-shadow grayscale-images shadow clearfix" id="fifth_wrapper">
 		<li class="cards" id="fifth_1">
-			{% if m.0.status.class12 == '1' %}
-				<img src="/static/images/class-not.png"/>
-			{% else %}
-				<img src="/static/images/class-empty.png"/>
-			{% endif %}
-			<span class="main_caption">{{ buildingName }}{{ m.0.classroom.room }}</span>
-			<p>{{ periodName }}</p>
-			<a type="button" class="butn">Reserve It</a>
+			<form action="/reserveinfo/" method="post">
+				{% if m.0.status.class12 == '1' %}
+					<img src="/static/images/class-not.png"/>
+				{% else %}
+					<img src="/static/images/class-empty.png"/>
+				{% endif %}
+				<span class="main_caption">{{ buildingName }}{{ m.0.classroom.room }}</span>
+				<p>{{ periodName }}</p>
+
+				{% if m.0.status.class12 == '1' %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
+				{% else %}
+				<input name="reserve_building" type="hidden" value="{{ m.0.classroom.building }}">
+				<input name="reserve_room" type="hidden" value="{{ m.0.classroom.room }}">
+				<input name="reserve_weeknum" type="hidden" value="{{ m.0.weeknum }}">
+				<input name="reserve_week" type="hidden" value="{{ m.0.week }}">
+				<input name="reserve_period" type="hidden" value="{{ period }}">
+				<input type="submit" class="butn" value="Reserve It">
+				{% endif %}
+			</form>
 		</li>
 
 		<li class="cards" id="fifth_2">
-			{% if m.1.status.class12 == '1' %}
-				<img src="/static/images/class-not.png"/>
-			{% else %}
-				<img src="/static/images/class-empty.png"/>
-			{% endif %}
-			<span class="main_caption">{{ buildingName }}{{ m.1.classroom.room }}</span>
-			<p>{{ periodName }}</p>
-			<a type="button" class="butn">Reserve It</a>
+			<form action="/reserveinfo/" method="post">
+				{% if m.1.status.class12 == '1' %}
+					<img src="/static/images/class-not.png"/>
+				{% else %}
+					<img src="/static/images/class-empty.png"/>
+				{% endif %}
+				<span class="main_caption">{{ buildingName }}{{ m.1.classroom.room }}</span>
+				<p>{{ periodName }}</p>
+
+				{% if m.1.status.class12 == '1' %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
+				{% else %}
+				<input name="reserve_building" type="hidden" value="{{ m.1.classroom.building }}">
+				<input name="reserve_room" type="hidden" value="{{ m.1.classroom.room }}">
+				<input name="reserve_weeknum" type="hidden" value="{{ m.1.weeknum }}">
+				<input name="reserve_week" type="hidden" value="{{ m.1.week }}">
+				<input name="reserve_period" type="hidden" value="{{ period }}">
+				<input type="submit" class="butn" value="Reserve It">
+				{% endif %}
+			</form>
 		</li>
 
 		<li class="cards" id="fifth_3">
-			{% if m.2.status.class12 == '1' %}
-				<img src="/static/images/class-not.png"/>
-			{% else %}
-				<img src="/static/images/class-empty.png"/>
-			{% endif %}
-			<span class="main_caption">{{ buildingName }}{{ m.2.classroom.room }}</span>
-			<p>{{ periodName }}</p>
-			<a type="button" class="butn">Reserve It</a>
+			<form action="/reserveinfo/" method="post">
+				{% if m.2.status.class12 == '1' %}
+					<img src="/static/images/class-not.png"/>
+				{% else %}
+					<img src="/static/images/class-empty.png"/>
+				{% endif %}
+				<span class="main_caption">{{ buildingName }}{{ m.2.classroom.room }}</span>
+				<p>{{ periodName }}</p>
+
+				{% if m.2.status.class12 == '1' %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
+				{% else %}
+				<input name="reserve_building" type="hidden" value="{{ m.2.classroom.building }}">
+				<input name="reserve_room" type="hidden" value="{{ m.2.classroom.room }}">
+				<input name="reserve_weeknum" type="hidden" value="{{ m.2.weeknum }}">
+				<input name="reserve_week" type="hidden" value="{{ m.2.week }}">
+				<input name="reserve_period" type="hidden" value="{{ period }}">
+				<input type="submit" class="butn" value="Reserve It">
+				{% endif %}
+			</form>
 		</li>
 
 		<li class="cards" id="fifth_4">
-			{% if m.3.status.class12 == '1' %}
-				<img src="/static/images/class-not.png"/>
-			{% else %}
-				<img src="/static/images/class-empty.png"/>
-			{% endif %}
-			<span class="main_caption">{{ buildingName }}{{ m.3.classroom.room }}</span>
-			<p>{{ periodName }}</p>
-			<a type="button" class="butn">Reserve It</a>
-		</li>    
+			<form action="/reserveinfo/" method="post">
+				{% if m.3.status.class12 == '1' %}
+					<img src="/static/images/class-not.png"/>
+				{% else %}
+					<img src="/static/images/class-empty.png"/>
+				{% endif %}
+				<span class="main_caption">{{ buildingName }}{{ m.3.classroom.room }}</span>
+				<p>{{ periodName }}</p>
+
+				{% if m.3.status.class12 == '1' %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
+				{% else %}
+				<input name="reserve_building" type="hidden" value="{{ m.3.classroom.building }}">
+				<input name="reserve_room" type="hidden" value="{{ m.3.classroom.room }}">
+				<input name="reserve_weeknum" type="hidden" value="{{ m.3.weeknum }}">
+				<input name="reserve_week" type="hidden" value="{{ m.3.week }}">
+				<input name="reserve_period" type="hidden" value="{{ period }}">
+				<input type="submit" class="butn" value="Reserve It">
+				{% endif %}
+			</form>
+		</li>
 	</div>
 	{% endfor %}
 
 	<div class="cards_wrap grayscale-images shadow clearfix" id="first_wrapper" style="height: 450px">
-		
+
 		<li class="cards" id="first_1">
 			<a href="images/Zhengxin.jpg" rel="lightbox-one" title="Interior">
 				<img rel="lightbox" src="/static/images/Zhengxin.jpg"></a>
@@ -338,7 +392,7 @@
 
     <script language="javascript">
 		var seldata=new Array();//数据格式 ID，父级ID，名称
-		
+
 		seldata[0]=new Array("1","root","一校区");
 		seldata[1]=new Array("2","root","二校区");
 
@@ -346,7 +400,7 @@
 		seldata[3]=new Array("025","1","致知楼");
 		seldata[4]=new Array("027","1","诚意楼");
 		seldata[5]=new Array("012","1","机械楼");
-		
+
 		//正心楼层
 		seldata[6]=new Array("1","016","F1");
 		seldata[7]=new Array("2","016","F2");
@@ -372,7 +426,7 @@
 		seldata[23]=new Array("4","027","F4");
 		seldata[24]=new Array("5","027","F5");
 		seldata[25]=new Array("6","027","F6");
-		
+
 		//机械楼楼层
 		seldata[26]=new Array("1","012","F1");
 		seldata[27]=new Array("2","012","F2");

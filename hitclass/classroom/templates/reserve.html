@@ -1,0 +1,144 @@
+<html>
+<head>
+    <title>教室预借|校园生活服务</title>
+
+    {% load staticfiles %}<link href="{% static "css/bootstrap.css" %}" rel='stylesheet' type='text/css'>
+    <script src="js/jquery.min.js"></script>
+    {% load staticfiles %}<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="UNITED COMMS Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!--webfont-->
+    <link href='http://fonts.useso.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+        <!-- Add 2015.11.22 -->
+    {% load staticfiles %}<link href="{% static "css/flat-bootstrap.min.css" %}" rel='stylesheet'>
+    {% load staticfiles %}<link href="{% static "css/flat-ui.min.css" %}" rel='stylesheet'>
+    {% load staticfiles %}<link href="{% static "css/flat-bootstrap.min.css" %}" rel='stylesheet'>
+
+    {% load staticfiles %}<link href="{% static "css/table.css" %}" rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/index/"><img src="/static/images/logo.jpg" class="img-responsive" alt="" /></a>
+            </div>
+            <div class="header-right">
+                <h4><i class=""></i>Harbin Institute of Technology</h4>
+                <span class="menu"></span>
+                <div class="top-menu">
+                    <ul>
+                        <li><a href="/index">首页</a></li>
+                        <li><a href="/recommend">教室推荐</a></li>
+                        <li><a href="/search">教室查询</a></li>
+                        <li><a href="/navigation">校园导航</a></li>
+                        <li><a class="active" href="/reserve">教室预借</a></li>
+                        <li><a href="/login">统一身份认证</a></li>
+                    </ul>
+                </div>
+                <script>
+                $( "span.menu" ).click(function() {
+                  $( ".top-menu" ).slideToggle( "slow", function() {
+                  });
+                });
+            </script>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="cards_wrap no-image-shadow grayscale-images shadow clearfix" id="fifth_wrapper">
+        <li class="cards" id="fifth_1">
+            <img src="/static/images/Zhengxin.jpg" />
+            <span class="main_caption">{{ reserveInfoLst.0.buildingname }}{{ reserveInfoLst.0.room }}</span>
+            <p>第{{ reserveInfoLst.0.weeknum }}周</p>
+            <p>星期：{{ reserveInfoLst.0.weekname }}</p>
+            <p>节次：{{ reserveInfoLst.0.periodname }}</p>
+            <p>电话： {{ reserveInfoLst.0.phone }}</p>
+            <p>单位：{{ reserveInfoLst.0.phone }}</p>
+            {% if reserveInfoLst.0.status == '1' %}
+            <a type="button" class="butn">已通过</a>
+            {% elif reserveInfoLst.0.status == '0' %}
+            <a type="button" class="butn">未通过</a>
+            {% else %}
+            <a type="button" class="butn">审核中</a>
+            {% endif %}
+        </li>
+
+        <li class="cards" id="fifth_2">
+            <img src="/static/images/Zhizhi.jpg"/>
+            <span class="main_caption">{{ reserveInfoLst.1.buildingname }}{{ reserveInfoLst.1.room }}</span>
+            <p>第{{ reserveInfoLst.1.weeknum }}周</p>
+            <p>星期：{{ reserveInfoLst.1.weekname }}</p>
+            <p>节次：{{ reserveInfoLst.1.periodname }}</p>
+            <p>电话： {{ reserveInfoLst.1.phone }}</p>
+            <p>单位：{{ reserveInfoLst.1.phone }}</p>
+            {% if reserveInfoLst.1.status == '1' %}
+            <a type="button" class="butn">已通过</a>
+            {% elif reserveInfoLst.1.status == '0' %}
+            <a type="button" class="butn">未通过</a>
+            {% else %}
+            <a type="button" class="butn">审核中</a>
+            {% endif %}
+        </li>
+
+        <li class="cards" id="fifth_3">
+            <img src="/static/images/Zhulou.jpg" />
+            <span class="main_caption">{{ reserveInfoLst.2.buildingname }}{{ reserveInfoLst.2.room }}</span>
+            <p>第{{ reserveInfoLst.2.weeknum }}周</p>
+            <p>星期：{{ reserveInfoLst.2.weekname }}</p>
+            <p>节次：{{ reserveInfoLst.2.periodname }}</p>
+            <p>电话： {{ reserveInfoLst.2.phone }}</p>
+            <p>单位：{{ reserveInfoLst.2.phone }}</p>
+            {% if reserveInfoLst.2.status == '1' %}
+            <a type="button" class="butn">已通过</a>
+            {% elif reserveInfoLst.2.status == '0' %}
+            <a type="button" class="butn">未通过</a>
+            {% else %}
+            <a type="button" class="butn">审核中</a>
+            {% endif %}
+        </li>
+
+        <li class="cards" id="fifth_4">
+            <img src="/static/images/Chengyi.jpg" />
+            <span class="main_caption">{{ reserveInfoLst.3.buildingname }}{{ reserveInfoLst.3.room }}</span>
+            <p>第{{ reserveInfoLst.3.weeknum }}周</p>
+            <p>星期：{{ reserveInfoLst.3.weekname }}</p>
+            <p>节次：{{ reserveInfoLst.3.periodname }}</p>
+            <p>电话： {{ reserveInfoLst.3.phone }}</p>
+            <p>单位：{{ reserveInfoLst.3.phone }}</p>
+            {% if reserveInfoLst.3.status == '1' %}
+            <a type="button" class="butn">已通过</a>
+            {% elif reserveInfoLst.3.status == '0' %}
+            <a type="button" class="butn">未通过</a>
+            {% else %}
+            <a type="button" class="butn">审核中</a>
+            {% endif %}
+        </li>
+    </div>
+
+
+    <div class="footer text-center">
+        <div class="copyright">
+            <p>Copyright &copy; 2015.HITCS Zhiming Liu & Rongpeng Zheng & Kai Lin All rights reserved</p>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="/static/js/jquery-latest.js"></script>
+    <script type="text/javascript" src="/static/js/js.js"></script>
+    <script type="text/javascript" src="/static/js/slimbox2.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/flat-jquery.min.js"></script>
+    <script src="/static/js/flat-ui.min.js"></script>
+    <script src="/static/js/flat-application.js"></script>
+
+</body>
+
+</html>

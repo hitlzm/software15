@@ -1,14 +1,10 @@
 <html>
 <head>
-	<title>校园导航</title>
+	<title>身份认证|校园生活服务</title>
 	
 	{% load staticfiles %}<link href="{% static "css/bootstrap.css" %}" rel='stylesheet' type='text/css'>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="js/jquery.min.js"></script>
-	<!-- Custom Theme files -->
 	{% load staticfiles %}<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all" />
-	
-	<!-- Custom Theme files -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="UNITED COMMS Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
@@ -20,10 +16,7 @@
 
 </head>
 
-
 <body>
-
-	<!-- header-section-starts -->
 	<div class="header">
 		<div class="container">
 			<div class="logo">
@@ -37,42 +30,23 @@
 						<li><a href="/index">首页</a></li>
 						<li><a href="/recommend">教室推荐</a></li>
 						<li><a href="/search">教室查询</a></li>
-						<li><a class="active" href="/navigation">校园导航</a></li>
+						<li><a href="/navigation">校园导航</a></li>
 						<li><a href="/reserve">教室预借</a></li>
 						<li><a href="/login">统一身份认证</a></li>
 					</ul>
 				</div>
-				<!-- script for menu -->
 				<script>
 				$( "span.menu" ).click(function() {
 				  $( ".top-menu" ).slideToggle( "slow", function() {
-				    // Animation complete.
 				  });
 				});
 			</script>
-			<!-- script for menu -->
 			</div>
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<!-- header-section-ends -->
 
-
-	<div class="map s-map">
-		<iframe src="http://map.hit.edu.cn/" frameborder="0" style="border:0"></iframe>
-	</div>
-
-	<div class="footer text-center">
-		<div class="copyright">
-			<p>Copyright &copy; 2015.HITCS Zhiming Liu & Rongpeng Zheng & Kai Lin All rights reserved</p>
-		</div>
-	</div>
-
-
-	<script type="text/javascript" src="js/jquery-latest.js"></script>
-	<script type="text/javascript" src="js/js.js"></script>
-	<script type="text/javascript" src="js/slimbox2.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

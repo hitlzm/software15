@@ -1,0 +1,211 @@
+<html>
+<head>
+	<title>预借信息|校园生活服务</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="keywords" content="UNITED COMMS Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+
+	{% load staticfiles %}<link href="{% static "css/bootstrap.css" %}" rel='stylesheet' type='text/css'>
+	{% load staticfiles %}<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all" />
+
+	{% load staticfiles %}<link href="{% static "css/demostyle.css" %}" media="screen" rel="stylesheet" type="text/css" />
+	{% load staticfiles %}<link href="{% static "css/iconic.css" %}" media="screen" rel="stylesheet" type="text/css" />
+	<script src="static/js/prefix-free.js"></script>
+
+	<link href='http://fonts.useso.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<script src="static/js/jquery.min.js"></script>
+
+
+	<script src="scriptaculous/lib/prototype.js" type="text/javascript"></script>
+	<script src="scriptaculous/src/effects.js" type="text/javascript"></script>
+	<script type="text/javascript" src="validation.js"></script>
+	<script type="text/javascript"></script>
+	{% load staticfiles %}<link href="{% static "css/reserve-style.css" %}" media="screen" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+	<div class="header">
+		<div class="container">
+			<div class="logo">
+				<a href="/index"><img src="/static/images/logo.jpg" class="img-responsive" alt="" /></a>
+			</div>
+
+			<div class="header-right">
+				<h4><i class=""></i>Harbin Institute of Technology</h4>
+				<span class="menu"></span>
+
+				<div class="top-menu">
+					<ul>
+						<li><a href="/index">首页</a></li>
+						<li><a href="/recommend">教室推荐</a></li>
+						<li><a href="/search">教室查询</a></li>
+						<li><a href="/navigation">校园导航</a></li>
+						<li><a href="/reserve">教室预借</a></li>
+						<li><a href="/login">统一身份认证</a></li>
+					</ul>
+				</div>
+			</div>
+		<script>
+			$( "span.menu" ).click(function() {
+			$( ".top-menu" ).slideToggle( "slow", function() {// Animation complete.
+			});
+			});
+		</script>
+
+		</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	<div class="form_content">
+		<form id="test" action="/reserve/" method="post">
+			<fieldset>
+				<legend>使用人</legend>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>学号：</label>
+					</div>
+					<div class="field-widget">
+						<input name="studentID" class="required">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>姓名：</label>
+					</div>
+					<div class="field-widget">
+						<input name="name" class="required">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>联系电话：</label>
+					</div>
+					<div class="field-label">
+						<input name="phone" class="required">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>借用单位：</label>
+					</div>
+					<div class="field-label">
+						<input name="school" class="required">
+					</div>
+				</div>
+
+			</fieldset>
+
+			<fieldset>
+				<legend>教室信息</legend>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>教学楼：</label>
+					</div>
+					<div class="field-widget">
+						<input name="building" class="required" value="{{ classroomMessage.0 }}">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>教室</label>
+					</div>
+					<div class="field-widget">
+						<input name="room" class="required" value="{{ classroomMessage.1 }}">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>周次</label>
+					</div>
+					<div class="field-label">
+						<input name="weekNum" class="required" value="{{ classroomMessage.2 }}">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>星期</label>
+					</div>
+					<div class="field-label">
+						<input name="week" class="required" value="{{ classroomMessage.3 }}">
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="field-label">
+						<label>节次</label>
+					</div>
+					<div class="field-label">
+						<input name="period" class="required" value="{{ classroomMessage.4 }}">
+					</div>
+				</div>
+
+			</fieldset>
+
+            <fieldset>
+                <legend>用途</legend>
+
+                <div class="form-row">
+                    <div class="field-label">
+                    	<label>简要描述内容：</label>
+                    </div>
+                    <div class="field-widget">
+                    	<textarea class="required" name="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="field-label">
+                    	<label>参加人数：</label>
+                    </div>
+                    <div class="field-widget">
+                    	<input name="studentNum" class="required">
+                    </div>
+                </div>
+
+				<div class="form-row">
+					<div class="field-label"><label for="field6">媒体设备</label>:</div>
+						<div class="field-widget">
+						<select name="media" class="validate-selection">
+							<option value="1">使用多媒体</option>
+							<option value="0">不使用多媒体</option>
+						</select>
+						</div>
+					</div>
+				</div>
+			<p align="center"><button class="btn btn-hg btn-primary" type="submit">Reserve Now</button></p>
+			<br><br>
+        </form>
+    </div>
+
+	<div class="footer text-center">
+		<div class="copyright">
+			<p>Copyright &copy; 2015.HITCS Zhiming Liu & Rongpeng Zheng & Kai Lin All rights reserved</p>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="/static/js/jquery-latest.js"></script>
+	<script type="text/javascript" src="/static/js/js.js"></script>
+	<script type="text/javascript" src="/static/js/slimbox2.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+	<!-- Add 2015.11.22 -->
+	<script src="/static/js/flat-jquery.min.js"></script>
+    <script src="/static/js/flat-ui.min.js"></script>
+    <script src="/static/js/flat-application.js"></script>
+
+</body>

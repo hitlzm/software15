@@ -3,7 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.db.models import Q
 import time, string, datetime, random
-from classroom.models import Classroom, Status, Week
+from classroom.models import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
 
 import sys
 reload(sys)
@@ -16,7 +19,7 @@ def index(request):
 
 # 教室查询
 def search(request):
-	buildingLst = [["016", "正心"], ["025", "致知"], ["027", "诚意"], ["012", "机械"], 
+	buildingLst = [["016", "正心"], ["025", "致知"], ["027", "诚意"], ["012", "机械"],
 					["033", "主楼"], ["032", "东配楼"], ["042", "西配楼"]]
 
 	message = Week()
@@ -33,7 +36,7 @@ def search(request):
 										classroom__floor__exact = floor,
 										weeknum__exact = weeknum,
 										week__icontains = week)
-		
+
 		# 处理节次问题
 		for everyweek in message:
 			if period == 1:
@@ -53,11 +56,11 @@ def search(request):
 			messageLst.append(message[i])
 		for j in range(4):
 			messageLst.append(Week())
-	
+
 		key = len(message) / 4 + 1
-		if len(message) % 4 == 0:
+		if len(message) % 4 == 0 and len(message) != 0:
 			key = len(message) / 4
-		
+
 		messageTeam = []
 		for i in range(0, key * 4, 4):
 			everyLst = []
@@ -70,12 +73,17 @@ def search(request):
 		for i in buildingLst:
 			if i[0] == building:
 				buildingName = i[1]
-		
+
 		# 节次
-		periodLst = ["第1-2节", "第3-4节", "第5-6节", "第7-8节", "第9-10节", "第11-12节"]
+		periodLst = [	"第1-2节 08:00--09:45",
+						"第3-4节 10:00--11:45",
+						"第5-6节 13:45--15:30",
+						"第7-8节 15:45--17:30",
+						"第9-10节 18:30--20:15",
+						"第11-12节 20:30--22:15"]
 		periodName = periodLst[period]
 
-		return render_to_response('search.html', 
+		return render_to_response('search.html',
 			{'messageTeam':messageTeam, 'buildingName':buildingName, 'periodName':periodName, 'period':period})
 
 	return render_to_response('search.html',)
@@ -86,7 +94,12 @@ def navigation(request):
 
 # 登录认证
 def login(request):
-	return render_to_response('login.html', {'key':True})
+	if request.POST:
+		ID = request.POST['ID']	# 学号
+		password = request.POST['password']	# 密码
+		return render_to_response('login.html',)
+
+	return render_to_response('login.html',)
 
 # 教室推荐
 def	recommend(request):
@@ -101,7 +114,7 @@ def	recommend(request):
 	randLst = [0, 1, 0, 2, 0, 3, 0, 1, 4, 0, 1, 5, 6, 0, 2, 1, 2, 2] #加权随机序列
 	randNum = random.randint(0, len(randLst) - 1)
 	key = randLst[randNum]
-	
+
 	campus = buildingLst[key][0]	# 随机校区
 	building = buildingLst[key][1]	# 随机教学楼
 	floor = random.randint(1, buildingLst[key][3] + 1) # 随机楼层
@@ -188,9 +201,9 @@ def	recommend(request):
 		messageLst.append(Week())
 
 	key = len(message) / 4 + 1
-	if len(message) % 4 == 0:
+	if len(message) % 4 == 0 and len(message) != 0:
 		key = len(message) / 4
-	
+
 	messageTeam = []
 	for i in range(0, key * 4, 4):
 		everyLst = []
@@ -204,5 +217,44 @@ def	recommend(request):
 		if i[1] == building:
 			buildingName = i[2]
 
-	return render_to_response('recommend.html', 
+	return render_to_response('recommend.html',
 		{'messageTeam':messageTeam, 'buildingName':buildingName, 'periodName':periodName, 'period':period})
+
+
+# 教室预借
+def reserveinfo(request):
+
+	buildingLst = [	["1", "016", "正心", 10],
+				["1", "025", "致知", 4],
+				["1", "027", "诚意", 6],
+				["1", "012", "机械", 4],
+				["2", "033", "主楼", 9],
+				["2", "032", "东配楼", 4],
+				["2", "042", "西配楼", 3]]
+	periodLst = ["第1-2节", "第3-4节", "第5-6节", "第7-8节", "第9-10节", "第11-12节"]
+
+	if request.POST:
+		reserve_building = request.POST['reserve_building']	# 教学楼
+		reserve_room = request.POST['reserve_room']	# 教室
+		reserve_weeknum = request.POST['reserve_weeknum'] # 教学周
+		reserve_week = request.POST['reserve_week']	# 星期
+		reserve_period = int(request.POST['reserve_period']) # 节次
+
+		classroomMessage = []
+		for i in buildingLst:
+			if i[1] == reserve_building:
+				classroomMessage.append(i[2])
+		classroomMessage.append(reserve_room)
+		classroomMessage.append(reserve_weeknum)
+		classroomMessage.append(reserve_week)
+		periodName = periodLst[reserve_period]
+		classroomMessage.append(periodName)
+
+		return render_to_response('reserveinfo.html', {'classroomMessage':classroomMessage,})
+
+	return render_to_response('reserveinfo.html',)
+
+
+def reserve(request):
+
+	return render_to_response('reserve.html',)
