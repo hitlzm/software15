@@ -63,92 +63,92 @@
 	<div class="cards_wrap no-image-shadow grayscale-images shadow clearfix" id="fifth_wrapper">
 		<li class="cards" id="fifth_1">
 			<form action="/reserveinfo/" method="post">
-				{% if m.0.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.0.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.0.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 
-				{% if m.0.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.0.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.0.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.0.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.0.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.0.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
-				<input type="submit" class="butn" value="Reserve It">
+				<input type="submit" class="butn" value="Reserve It">				
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>
 		
 		<li class="cards" id="fifth_2">
 			<form action="/reserveinfo/" method="post">
-				{% if m.1.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.1.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.1.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 				
-				{% if m.1.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.1.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.1.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.1.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.1.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.1.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
 				<input type="submit" class="butn" value="Reserve It">
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>
 
 		<li class="cards" id="fifth_3">
 			<form action="/reserveinfo/" method="post">
-				{% if m.2.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.2.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.2.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 				
-				{% if m.2.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.2.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.2.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.2.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.2.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.2.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
 				<input type="submit" class="butn" value="Reserve It">
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>
 	
 		<li class="cards" id="fifth_4">
 			<form action="/reserveinfo/" method="post">
-				{% if m.3.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.3.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.3.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 				
-				{% if m.3.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.3.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.3.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.3.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.3.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.3.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
-				<input type="submit" class="butn" value="Reserve It">
+				<input type="submit" class="butn" value="Reserve It">				
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>

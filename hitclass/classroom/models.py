@@ -41,6 +41,7 @@ class ReserveInfo(models.Model):
 	buildingname = models.CharField(max_length = 15) #教学楼名
 	room = models.CharField(max_length = 10) #教室名
 	weeknum = models.CharField(max_length = 2) #周次
+	weeknumname = models.CharField(max_length = 15) #周次名
 	week = models.CharField(max_length = 1) #星期
 	weekname = models.CharField(max_length = 10) #星期一；星期二；
 	period = models.CharField(max_length = 1) #节次
@@ -52,3 +53,6 @@ class ReserveInfo(models.Model):
 	phone = models.CharField(max_length = 11) #联系人电话
 	school = models.CharField(max_length = 30) #联系人单位
 	user = models. ForeignKey(User)
+
+	def __unicode__(self):
+		return self.buildingname + '-' + self.room + '-' + self.weeknum + '-' + self.weekname + '-' + self.periodname

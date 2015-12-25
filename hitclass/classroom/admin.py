@@ -5,3 +5,4 @@ from classroom.models import*
 admin.site.register(Classroom)
 admin.site.register(Week)
 admin.site.register(Status)
+admin.site.register(ReserveInfo)
