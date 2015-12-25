@@ -241,11 +241,49 @@ def	recommend(request):
 
 	# 按照生成的随机信息去数据查询
 	message = Week()
-	message = Week.objects.filter(	classroom__campus__icontains = campus,
+	if period == 0:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
 									classroom__building__icontains = building,
 									classroom__floor__exact = floor,
 									weeknum__exact = weeknum,
-									week__icontains = week)
+									week__icontains = week,							
+									status__class12 = '0')
+	elif period == 1:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class34 = '0')
+
+	elif period == 2:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class56 = '0')
+	elif period == 3:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class78 = '0')
+	elif period == 4:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class910 = '0')
+	elif period == 5:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class1112 = '0')
 
 	# 处理节次问题
 	for everyweek in message:
