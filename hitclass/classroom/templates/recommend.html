@@ -63,92 +63,92 @@
 	<div class="cards_wrap no-image-shadow grayscale-images shadow clearfix" id="fifth_wrapper">
 		<li class="cards" id="fifth_1">
 			<form action="/reserveinfo/" method="post">
-				{% if m.0.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.0.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.0.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 
-				{% if m.0.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.0.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.0.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.0.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.0.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.0.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
-				<input type="submit" class="butn" value="Reserve It">
+				<input type="submit" class="butn" value="Reserve It">				
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>
 		
 		<li class="cards" id="fifth_2">
 			<form action="/reserveinfo/" method="post">
-				{% if m.1.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.1.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.1.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 				
-				{% if m.1.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.1.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.1.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.1.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.1.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.1.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
 				<input type="submit" class="butn" value="Reserve It">
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>
 
 		<li class="cards" id="fifth_3">
 			<form action="/reserveinfo/" method="post">
-				{% if m.2.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.2.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.2.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 				
-				{% if m.2.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.2.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.2.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.2.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.2.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.2.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
 				<input type="submit" class="butn" value="Reserve It">
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>
 	
 		<li class="cards" id="fifth_4">
 			<form action="/reserveinfo/" method="post">
-				{% if m.3.status.class12 == '1' %}
-					<img src="/static/images/class-not.png"/>
-				{% else %}
+				{% if m.3.status.class12 == '0' %}
 					<img src="/static/images/class-empty.png"/>
+				{% else %}
+					<img src="/static/images/class-not.png"/>
 				{% endif %}
 				<span class="main_caption">{{ buildingName }}{{ m.3.classroom.room }}</span>
 				<p>{{ periodName }}</p>
 				
-				{% if m.3.status.class12 == '1' %}
-				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
-				{% else %}
+				{% if m.3.status.class12 == '0' %}
 				<input name="reserve_building" type="hidden" value="{{ m.3.classroom.building }}">
 				<input name="reserve_room" type="hidden" value="{{ m.3.classroom.room }}">
 				<input name="reserve_weeknum" type="hidden" value="{{ m.3.weeknum }}">
 				<input name="reserve_week" type="hidden" value="{{ m.3.week }}">
 				<input name="reserve_period" type="hidden" value="{{ period }}">
-				<input type="submit" class="butn" value="Reserve It">
+				<input type="submit" class="butn" value="Reserve It">				
+				{% else %}
+				<a type="button" onclick="disp_alert()" class="butn">Reserve It</a>
 				{% endif %}
 			</form>
 		</li>
@@ -162,29 +162,29 @@
 		<li class="cards" id="first_1">
 			<a href="images/test1.jpeg" rel="lightbox-one" title="Interior">
 				<img rel="lightbox" src="/static/images/test1.jpeg"></a>
-			<span class="main_caption">Building 1</span>
-			<span class="sub_caption">Zhengxin Building</span>
+			<span class="main_caption">主楼</span>
+			<span class="sub_caption">Zhulou Building</span>
 		</li>
 
 		<li class="cards" id="first_2">
 			<a href="images/test2.jpeg" rel="lightbox-one" title="Interior">
 				<img src="/static/images/test2.jpeg"></a>
-			<span class="main_caption">Building 2</span>
-			<span class="sub_caption">Zhizhi Building</span>
+			<span class="main_caption">图书馆</span>
+			<span class="sub_caption">Library Building</span>
 		</li>
 
 		<li class="cards" id="first_3">
 			<a href="images/test3.jpeg" rel="lightbox-one" title="Interior">
 				<img src="/static/images/test3.jpeg"></a>
-			<span class="main_caption">Building 3</span>
-			<span class="sub_caption">Main Building</span>
+			<span class="main_caption">科学园</span>
+			<span class="sub_caption">Science Park</span>
 		</li>
 
 		<li class="cards" id="first_4">
 			<a href="images/test4.jpeg" rel="lightbox-one" title="Interior">
 				<img src="/static/images/test4.jpeg"></a>
-			<span class="main_caption">Building 4</span>
-			<span class="sub_caption">Chengyi Building</span>
+			<span class="main_caption">土木楼</span>
+			<span class="sub_caption">Tumu Building</span>
 		</li>
 	</div>
 

@@ -53,15 +53,29 @@
         </div>
     </div>
 
+    <style type="text/css">
+        .current-user{
+            background-color: #1ABC9C;
+            color: white;
+            font-family: "微软雅黑";
+            font-size: 15;
+            text-align: right;
+        }
+    </style>
+
+    <p class = "current-user">欢迎：{{ username }}，&nbsp&nbsp
+    <a class = "current-user" href="/logout/">注销</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+
     <div class="cards_wrap no-image-shadow grayscale-images shadow clearfix" id="fifth_wrapper">
         <li class="cards" id="fifth_1">
             <img src="/static/images/Zhengxin.jpg" />
             <span class="main_caption">{{ reserveInfoLst.0.buildingname }}{{ reserveInfoLst.0.room }}</span>
-            <p>第{{ reserveInfoLst.0.weeknum }}周</p>
+            <p>周次：{{ reserveInfoLst.0.weeknumname }}</p>
             <p>星期：{{ reserveInfoLst.0.weekname }}</p>
             <p>节次：{{ reserveInfoLst.0.periodname }}</p>
             <p>电话： {{ reserveInfoLst.0.phone }}</p>
-            <p>单位：{{ reserveInfoLst.0.phone }}</p>
+            <p>单位：{{ reserveInfoLst.0.school }}</p>
+            <p>用途：{{ reserveInfoLst.0.description }}</p>
             {% if reserveInfoLst.0.status == '1' %}
             <a type="button" class="butn">已通过</a>
             {% elif reserveInfoLst.0.status == '0' %}
@@ -77,8 +91,9 @@
             <p>第{{ reserveInfoLst.1.weeknum }}周</p>
             <p>星期：{{ reserveInfoLst.1.weekname }}</p>
             <p>节次：{{ reserveInfoLst.1.periodname }}</p>
-            <p>电话： {{ reserveInfoLst.1.phone }}</p>
+            <p>电话： {{ reserveInfoLst.1.school }}</p>
             <p>单位：{{ reserveInfoLst.1.phone }}</p>
+            <p>用途：{{ reserveInfoLst.1.description }}</p>
             {% if reserveInfoLst.1.status == '1' %}
             <a type="button" class="butn">已通过</a>
             {% elif reserveInfoLst.1.status == '0' %}
@@ -95,7 +110,8 @@
             <p>星期：{{ reserveInfoLst.2.weekname }}</p>
             <p>节次：{{ reserveInfoLst.2.periodname }}</p>
             <p>电话： {{ reserveInfoLst.2.phone }}</p>
-            <p>单位：{{ reserveInfoLst.2.phone }}</p>
+            <p>单位：{{ reserveInfoLst.2.school}}</p>
+            <p>用途：{{ reserveInfoLst.2.description }}</p>
             {% if reserveInfoLst.2.status == '1' %}
             <a type="button" class="butn">已通过</a>
             {% elif reserveInfoLst.2.status == '0' %}
@@ -112,7 +128,8 @@
             <p>星期：{{ reserveInfoLst.3.weekname }}</p>
             <p>节次：{{ reserveInfoLst.3.periodname }}</p>
             <p>电话： {{ reserveInfoLst.3.phone }}</p>
-            <p>单位：{{ reserveInfoLst.3.phone }}</p>
+            <p>单位：{{ reserveInfoLst.3.school }}</p>
+            <p>用途：{{ reserveInfoLst.3.description }}</p>
             {% if reserveInfoLst.3.status == '1' %}
             <a type="button" class="butn">已通过</a>
             {% elif reserveInfoLst.3.status == '0' %}

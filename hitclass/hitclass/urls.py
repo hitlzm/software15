@@ -14,6 +14,8 @@ urlpatterns = patterns('',
 	url(r'^navigation/$', navigation),
 	url(r'^reserve/$', reserve),
 	url(r'^login/$', login),
+	url(r'^logout/$', logout),
 	url(r'^recommend/$', recommend),
 	url(r'^reserveinfo/$', reserveinfo),
+	url(r'^reserveinfosave/$', reserveinfosave),
 )

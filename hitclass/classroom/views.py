@@ -2,10 +2,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.db.models import Q
-import time, string, datetime, random
-from classroom.models import *
-from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from classroom.models import Classroom, Status, Week, ReserveInfo
+import urllib, urllib2  
+import cookielib
+import re, time, string, datetime, random
 
 
 import sys
@@ -88,18 +91,82 @@ def search(request):
 
 	return render_to_response('search.html',)
 
+
 # 校园导航
 def navigation(request):
 	return render_to_response('navigation.html', {'key':True})
 
+
 # 登录认证
 def login(request):
+	key = False
+	errors= []
+	ID=None
+	password=None
 	if request.POST:
-		ID = request.POST['ID']	# 学号
-		password = request.POST['password']	# 密码
-		return render_to_response('login.html',)
+		ID = request.POST['ID']
+		password= request.POST['password']
+		
+		###验证用户合法性
+		cookie = cookielib.CookieJar()    
+		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))  
+		  
+		#获得四个项用于登录
+		req_get4 = urllib2.Request(    
+			url = 'https://ids.hit.edu.cn/authserver/login?service=https%3A%2F%2Fcms.hit.edu.cn%2Flogin%2Findex.php%3FauthCAS%3DCAS'    
+		)    
+		result = opener.open(req_get4)  
+		value = re.findall('"hidden" name=".*?" value="(.*?)"',result.read())
+
+		#登录需要POST的数据#  
+		postdata=urllib.urlencode({    
+			'username':ID,
+			'password':password,
+			'lt':value[0],
+			'execution':value[1],
+			'_eventId':value[2],
+			'rmShown':value[3]
+		})
+
+		req_login = urllib2.Request(    
+			url = 'https://ids.hit.edu.cn/authserver/login?service=https%3A%2F%2Fcms.hit.edu.cn%2Flogin%2Findex.php%3FauthCAS%3DCAS',
+			data = postdata
+		)
+		result = opener.open(req_login)
+		
+		if (result.read().find("logout")) != -1:
+			user = auth.authenticate(username=ID, password=password)
+			if user is not None:
+				if user.is_active:
+					auth.login(request,user)
+					return render_to_response('reserve.html',)
+				else:
+					key = True
+					return render_to_response('login.html', {'user_password_false':key,})
+			else:#合法用户，但数据库中没有，则加入用户
+				user = User.objects.create_user(
+					username=ID,   
+					password=password
+				)
+				user = auth.authenticate(username=ID, password=password)
+				if user.is_active:
+					auth.login(request,user)
+					return render_to_response('reserve.html',)
+				else:
+					key = True
+					return render_to_response('login.html', {'user_password_false':key,})
+		else:
+			key = True
+			return render_to_response('login.html', {'user_password_false':key,})
 
 	return render_to_response('login.html',)
+
+
+# 登出
+def logout(request):
+	auth.logout(request)
+	return render_to_response('login.html', {'logout':True})
+
 
 # 教室推荐
 def	recommend(request):
@@ -174,11 +241,49 @@ def	recommend(request):
 
 	# 按照生成的随机信息去数据查询
 	message = Week()
-	message = Week.objects.filter(	classroom__campus__icontains = campus,
+	if period == 0:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
 									classroom__building__icontains = building,
 									classroom__floor__exact = floor,
 									weeknum__exact = weeknum,
-									week__icontains = week)
+									week__icontains = week,							
+									status__class12 = '0')
+	elif period == 1:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class34 = '0')
+
+	elif period == 2:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class56 = '0')
+	elif period == 3:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class78 = '0')
+	elif period == 4:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class910 = '0')
+	elif period == 5:
+		message = Week.objects.filter(	classroom__campus__icontains = campus,
+									classroom__building__icontains = building,
+									classroom__floor__exact = floor,
+									weeknum__exact = weeknum,
+									week__icontains = week,
+									status__class1112 = '0')
 
 	# 处理节次问题
 	for everyweek in message:
@@ -222,22 +327,39 @@ def	recommend(request):
 
 
 # 教室预借
+@login_required(login_url='/login/')
 def reserveinfo(request):
-
+	user = User.objects.filter(id__exact = request.user.id)[0]
+	userinfo = []
+	userinfo.append(user.username)
+	reserveinfo = ReserveInfo.objects.filter(user__exact = user)
+	if reserveinfo:
+		userinfo.append(reserveinfo[0].name)
+		userinfo.append(reserveinfo[0].phone)
+		userinfo.append(reserveinfo[0].school)
+	else:
+		userinfo.append("")
+		userinfo.append("")
+		
 	buildingLst = [	["1", "016", "正心", 10],
-				["1", "025", "致知", 4],
-				["1", "027", "诚意", 6],
-				["1", "012", "机械", 4],
-				["2", "033", "主楼", 9],
-				["2", "032", "东配楼", 4],
-				["2", "042", "西配楼", 3]]
+					["1", "025", "致知", 4],
+					["1", "027", "诚意", 6],
+					["1", "012", "机械", 4],
+					["2", "033", "主楼", 9],
+					["2", "032", "东配", 4],
+					["2", "042", "西配", 3]]
 	periodLst = ["第1-2节", "第3-4节", "第5-6节", "第7-8节", "第9-10节", "第11-12节"]
+	weeknumLst = [	"第1周", "第2周", "第3周", "第4周", "第5周",
+					"第6周", "第7周", "第8周", "第9周", "第10周",
+					"第11周", "第12周", "第13周", "第14周", "第15周",
+					"第16周", "第17周", "第18周", "第19周", "第20周"]
+	weekLst = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
 
 	if request.POST:
 		reserve_building = request.POST['reserve_building']	# 教学楼
 		reserve_room = request.POST['reserve_room']	# 教室
-		reserve_weeknum = request.POST['reserve_weeknum'] # 教学周
-		reserve_week = request.POST['reserve_week']	# 星期
+		reserve_weeknum = int(request.POST['reserve_weeknum']) # 教学周
+		reserve_week = int(request.POST['reserve_week'])	# 星期
 		reserve_period = int(request.POST['reserve_period']) # 节次
 
 		classroomMessage = []
@@ -245,16 +367,97 @@ def reserveinfo(request):
 			if i[1] == reserve_building:
 				classroomMessage.append(i[2])
 		classroomMessage.append(reserve_room)
-		classroomMessage.append(reserve_weeknum)
-		classroomMessage.append(reserve_week)
+		classroomMessage.append(weeknumLst[reserve_weeknum - 1])
+		classroomMessage.append(weekLst[reserve_week - 1])
 		periodName = periodLst[reserve_period]
 		classroomMessage.append(periodName)
 
-		return render_to_response('reserveinfo.html', {'classroomMessage':classroomMessage,})
+		return render_to_response('reserveinfo.html', {'classroomMessage':classroomMessage, 'username':user.username, 'userinfo':userinfo})
 
-	return render_to_response('reserveinfo.html',)
+	return render_to_response('reserveinfo.html', {'username':user.username, 'userinfo':userinfo})
 
 
-def reserve(request):
+@login_required(login_url='/login/')
+def reserveinfosave(request):
+	buildingLst = [	["1", "016", "正心", 10],
+					["1", "025", "致知", 4],
+					["1", "027", "诚意", 6],
+					["1", "012", "机械", 4],
+					["2", "033", "主楼", 9],
+					["2", "032", "东配", 4],
+					["2", "042", "西配", 3]]
+	periodLst = ["第1-2节", "第3-4节", "第5-6节", "第7-8节", "第9-10节", "第11-12节"]
+	weeknumLst = [	"第1周", "第2周", "第3周", "第4周", "第5周",
+					"第6周", "第7周", "第8周", "第9周", "第10周",
+					"第11周", "第12周", "第13周", "第14周", "第15周",
+					"第16周", "第17周", "第18周", "第19周", "第20周"]
+	weekLst = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
+
+	if request.POST:
+		ID = request.POST['studentID']	# 学号
+		name = request.POST['name']	# 姓名
+		phone = request.POST['phone'] # 联系电话
+		school = request.POST['school'] # 单位
+		buildingname = request.POST['buildingname'] # 教学名
+		room = request.POST['room']
+		weeknumname = request.POST['weeknumname']
+		weekname = request.POST['weekname']
+		periodname = request.POST['periodname']
+		description = request.POST['description']
+		peopletnum = request.POST['peoplenum']
+		media = request.POST['media']
+
+		building = ""
+		for i in buildingLst:
+			if i[2] == buildingname:
+				building = building + i[1]
+		weeknum = ""
+		for i in range(len(weeknumLst)):
+			if weeknumLst[i] == weeknumname:
+				weeknum = weeknum + str( i + 1)
+		week = ""
+		for i in range(len(weekLst)):
+			if weekLst[i] == weekname:
+				week = week + str(i + 1)
+		period = ""
+		for i in range(len(periodLst)):
+			if periodLst[i] == periodname:
+				period = period + str(i)
+
+		user = User.objects.filter(id__exact = request.user.id)[0]
+		reserveinfo = ReserveInfo(
+			building = building,
+			buildingname = buildingname,
+			room = room,
+			weeknum = weeknum,
+			weeknumname = weeknumname,
+			week = week,
+			weekname = weekname,
+			period = period,
+			periodname = periodname,
+			description = description,
+			peoplenum = peopletnum,
+			media = media,
+			status = '1',
+			phone = phone,
+			school = school,
+			name = name,
+			user = user)
+		reserveinfo.save()
+
+		return render_to_response('reserve.html',)
 
 	return render_to_response('reserve.html',)
+
+
+@login_required(login_url='/login/')
+def reserve(request):
+	user = User.objects.filter(id__exact = request.user.id)[0]
+	reserveinfo = ReserveInfo.objects.filter(user__exact = user)
+	reserveInfoLst = []
+	for i in reserveinfo:
+		reserveInfoLst.append(i)
+	for i in range(4):
+		reserveInfoLst.append(ReserveInfo())
+
+	return render_to_response('reserve.html',{'reserveInfoLst':reserveInfoLst, 'username':user.username})

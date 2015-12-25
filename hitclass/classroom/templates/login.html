@@ -129,7 +129,7 @@
 		}
 	</style>
 
-	<form action="/" method="post">
+	<form action="/login/" method="post">
 		<input type="text" name="ID" class="mylogin-ID" placeholder="用户名：学号/职工号">
 		<input type="password" name="password" class="mylogin-password" placeholder="密码：注意大小写">
 		<input type="submit" value="登   录" class="mylogin-submit">
@@ -137,6 +137,12 @@
 		<a name="tenlogin" class="mylogin-ten">十天内自动登录</a>
 		<a class="mylogin-problem">登录遇到问题？</a>
 	</form>
+	
+	{% if user_password_false %}
+	<script type="text/javascript">
+		alert("用户名或密码错误，请重新输入！");
+	</script>
+	{% endif %}
 
 	<!--
 	<div class="footer text-center">

@@ -61,9 +61,22 @@
 		</div>
 	</div>
 
+    <style type="text/css">
+        .current-user{
+            background-color: #1ABC9C;
+            color: white;
+            font-family: "微软雅黑";
+            font-size: 15;
+            text-align: right;
+        }
+    </style>
+
+    <p class = "current-user">欢迎：{{ username }}，&nbsp&nbsp
+    <a class = "current-user" href="/logout/">注销</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</p>
+
 
 	<div class="form_content">
-		<form id="test" action="/reserve/" method="post">
+		<form id="test" action="/reserveinfosave/" method="post">
 			<fieldset>
 				<legend>使用人</legend>
 
@@ -72,7 +85,7 @@
 						<label>学号：</label>
 					</div>
 					<div class="field-widget">
-						<input name="studentID" class="required">
+						<input name="studentID" class="required" value="{{ userinfo.0 }}">
 					</div>
 				</div>
 
@@ -81,7 +94,7 @@
 						<label>姓名：</label>
 					</div>
 					<div class="field-widget">
-						<input name="name" class="required">
+						<input name="name" class="required" value="{{ userinfo.1 }}">
 					</div>
 				</div>
 
@@ -90,7 +103,7 @@
 						<label>联系电话：</label>
 					</div>
 					<div class="field-label">
-						<input name="phone" class="required">
+						<input name="phone" class="required" value="{{ userinfo.2 }}">
 					</div>
 				</div>
 
@@ -99,7 +112,7 @@
 						<label>借用单位：</label>
 					</div>
 					<div class="field-label">
-						<input name="school" class="required">
+						<input name="school" class="required" value="{{ userinfo.3 }}">
 					</div>
 				</div>
 
@@ -113,7 +126,7 @@
 						<label>教学楼：</label>
 					</div>
 					<div class="field-widget">
-						<input name="building" class="required" value="{{ classroomMessage.0 }}">
+						<input name="buildingname" class="required" value="{{ classroomMessage.0 }}" >
 					</div>
 				</div>
 
@@ -122,7 +135,7 @@
 						<label>教室</label>
 					</div>
 					<div class="field-widget">
-						<input name="room" class="required" value="{{ classroomMessage.1 }}">
+						<input name="room" class="required" value="{{ classroomMessage.1 }}" >
 					</div>
 				</div>
 
@@ -131,7 +144,7 @@
 						<label>周次</label>
 					</div>
 					<div class="field-label">
-						<input name="weekNum" class="required" value="{{ classroomMessage.2 }}">
+						<input name="weeknumname" class="required" value="{{ classroomMessage.2 }}" >
 					</div>
 				</div>
 
@@ -140,7 +153,7 @@
 						<label>星期</label>
 					</div>
 					<div class="field-label">
-						<input name="week" class="required" value="{{ classroomMessage.3 }}">
+						<input name="weekname" class="required" value="{{ classroomMessage.3 }}" >
 					</div>
 				</div>
 
@@ -149,7 +162,7 @@
 						<label>节次</label>
 					</div>
 					<div class="field-label">
-						<input name="period" class="required" value="{{ classroomMessage.4 }}">
+						<input name="periodname" class="required" value="{{ classroomMessage.4 }}" >
 					</div>
 				</div>
 
@@ -172,7 +185,7 @@
                     	<label>参加人数：</label>
                     </div>
                     <div class="field-widget">
-                    	<input name="studentNum" class="required">
+                    	<input name="peoplenum" class="required">
                     </div>
                 </div>
 
